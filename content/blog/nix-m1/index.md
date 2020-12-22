@@ -6,9 +6,6 @@ date: "2020-12-22T23:46:37.121Z"
 category: MacOS 
 tags: ["nix", "macos"]
 ---
-
-# Configuring MacOS with Nix
-
 I had planned to do an Advent of Terminal Tools, but unfortunately I found Nix and completely missed every single day. However, I have come through enlightened.
 
 The problem I was looking to solve was the ability to setup a system with. my personal config with minimal effort. The only way to do this was to first expend all the effort on learning Nix.
@@ -17,12 +14,12 @@ The problem I was looking to solve was the ability to setup a system with. my pe
 
 "Nix is a tool that takes a unique approach to package management and system configuration. Learn how to make reproducible, declarative and reliable systems."
 
-So it builds everything in isolation, 
+So it builds everything in isolation,
 
-On top of this it also provides useful things like 
+On top of this it also provides useful things like
 - nix-env
     - Want to run something but dont want to install it? run it in a nix-env and just close it.
-    - Setup a developer environment that has all the tools you need for the specific task with no chance of dependency coliisions! 
+    - Setup a developer environment that has all the tools you need for the specific task with no chance of dependency coliisions!
 - just installed something to your system and its broke? just rollback!
 
 
@@ -56,22 +53,20 @@ This step will vary depending the the OS version and whether or not it has a T2 
 3. Install home-manager
     - `nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager`
     - `nix-channel --update`
-4. Import home-manager into your darwin config 
+4. Import home-manager into your darwin config
     - now add `imports = [ <home-manager/nix-darwin> ];` to your ~/.nixpkgs/darwin-configuration.nix
     ```
 { config, pkgs, ... }:
-
 {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   imports = [ <home-manager/nix-darwin> ];
-
 ...
     ```
-   
+
    this gives you access to home manager things like setting up a user
 
-    
+
    ```
   users.users.xanderle.name = "xanderle";
   users.users.xanderle.home = "/Users/xanderle";
@@ -83,15 +78,15 @@ This step will vary depending the the OS version and whether or not it has a T2 
 
   ```
   { pkgs, ... }: {
-  imports = [ 
+  imports = [
     ./applications/alacritty
-    ./applications/zsh 
-    ./applications/neovim 
+    ./applications/zsh
+    ./applications/neovim
     ./applications/git
     ./applications/tmux ];
 	
     home.packages = with pkgs; [
- 	atool 
+ 	atool
 	httpie
 	weechat
 	exa
